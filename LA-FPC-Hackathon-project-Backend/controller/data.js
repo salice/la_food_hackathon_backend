@@ -4,8 +4,11 @@ const Data = require("../models/data")
 
 // add data
 router.post("/add-data", async (req, res) => {
+  console.log("did it get here?")
+  console.log(req.body, "<-----------------------------------the body is?")
   try {
     const addData = await Data.create(req.body)
+    console.log(addData, "<------------------------add Data")
     res.json({
       status: {
         code: 200,
@@ -29,6 +32,10 @@ router.get("/get-data", async (req, res) => {
   } catch (err) {
     console.log(err)
   }
+})
+
+router.get("/search/:id", (req,res) => {
+  console.log(req)
 })
 
 //update data
@@ -60,6 +67,16 @@ router.delete("/:id", async (req, res) => {
       }
     })
   } catch (err) {
+    console.log(err)
+  }
+})
+
+router.post("/addingcsv", async (req,res) => {
+  try{
+    for(let i = 0; i < req.body.length; i++){
+      const addData = await Data.create(req.body[i])
+    }
+  } catch(err){
     console.log(err)
   }
 })
